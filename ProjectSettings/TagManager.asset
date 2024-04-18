@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Input
   - Output
+  - Switch
+  - LED
   layers:
   - Default
   - TransparentFX

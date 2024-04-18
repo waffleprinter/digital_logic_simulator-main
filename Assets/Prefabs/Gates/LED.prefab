@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 8765206474421960959}
   m_Layer: 6
   m_Name: LED
-  m_TagString: Untagged
+  m_TagString: LED
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
