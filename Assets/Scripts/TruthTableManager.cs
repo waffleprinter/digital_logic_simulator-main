@@ -7,10 +7,6 @@ public class TruthTableManager : MonoBehaviour
     public List<GameObject> switches = new List<GameObject>();
     public List<GameObject> leds = new List<GameObject>();
 
-    void Start() {
-        
-    }
-
     void Update() {
         
     }

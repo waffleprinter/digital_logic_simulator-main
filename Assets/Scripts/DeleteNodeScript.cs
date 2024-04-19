@@ -5,11 +5,6 @@ using UnityEngine;
 public class DeleteNodeScript : MonoBehaviour
 {
     private bool willDelete = false;
-    private GameObject truthTableManager;
-
-    private void Start() {
-        truthTableManager = GameObject.Find("Truth Table Manager");
-    }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace)) {
@@ -24,8 +19,6 @@ public class DeleteNodeScript : MonoBehaviour
 
             if (hit.collider == null) return;
 
-            if (hit.collider.gameObject.CompareTag("Switch")) truthTableManager.GetComponent<TruthTableManager>().switches.Remove(hit.collider.gameObject);
-            else if (hit.collider.gameObject.CompareTag("LED")) truthTableManager.GetComponent<TruthTableManager>().leds.Remove(hit.collider.gameObject);
             Destroy(hit.collider.gameObject);
             
             willDelete = false;
