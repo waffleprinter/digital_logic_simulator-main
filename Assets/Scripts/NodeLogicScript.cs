@@ -33,7 +33,7 @@ public class NodeLogicScript : MonoBehaviour {
     [SerializeField] private NodeType nodeType;
 
     public List<List<GameObject>> inputNodes = new List<List<GameObject>>();
-    [SerializeField] private bool output; // [SERIALIZEFIELD] TO SEE IN INSPECTOR
+    [SerializeField] public bool output; // [SERIALIZEFIELD] TO SEE IN INSPECTOR
 
     private float clockSpeed = 1;
 
@@ -91,7 +91,7 @@ public class NodeLogicScript : MonoBehaviour {
         return evaluatedInputs;
     }
 
-    private bool CalculateOutput() {
+    public bool CalculateOutput() {
         List<bool> evaluatedInputs = GetEvaluatedInputs();
 
         switch (nodeType) {

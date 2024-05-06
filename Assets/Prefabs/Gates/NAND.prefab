@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 3735583338082023906}
   m_Layer: 6
   m_Name: NAND
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

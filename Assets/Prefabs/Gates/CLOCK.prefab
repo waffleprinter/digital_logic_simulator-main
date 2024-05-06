@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8349573064111992881}
   m_Layer: 6
   m_Name: CLOCK
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeType: 9
   output: 0
-  clockSpeed: 1
 --- !u!61 &8349573064111992881
 BoxCollider2D:
   m_ObjectHideFlags: 0

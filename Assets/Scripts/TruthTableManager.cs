@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,8 +45,11 @@ public class TruthTableManager : MonoBehaviour
     }
 
     private void GetTruthTable() {
+        Debug.Log("call get truth table");
         ResetSwitches();
 
+        var gates = GameObject.FindGameObjectsWithTag("Gate");
+        var allLeds = GameObject.FindGameObjectsWithTag("LED");
         var permutations = Enumerable.Range(0, (int)Math.Pow(2, switches.Count)).Select(i => Convert.ToString(i, 2).PadLeft(switches.Count, '0'));
 
         foreach (var perm in permutations) {
@@ -54,9 +59,17 @@ public class TruthTableManager : MonoBehaviour
                 if (perm[i] == '1') switches[i].GetComponent<NodeLogicScript>().ToggleOutput();
             }
 
+            foreach (var gate in gates) {
+                gate.GetComponent<NodeLogicScript>().output = gate.GetComponent<NodeLogicScript>().CalculateOutput();
+            }
+
+            foreach (var led in allLeds) {
+                led.GetComponent<NodeLogicScript>().output = led.GetComponent<NodeLogicScript>().CalculateOutput();
+            }
+
             string ledOutput = "";
 
-            for (int i = 0; i < leds.Count; i++) {
+            for (int i = leds.Count - 1; i >= 0; i--) {
                 if (leds[i].GetComponent<NodeLogicScript>().GetOutput()) ledOutput += '1';
                 else ledOutput += '0';                
             }

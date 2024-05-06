@@ -8,6 +8,8 @@ TagManager:
   - Output
   - Switch
   - LED
+  - Switch or LED
+  - Gate
   layers:
   - Default
   - TransparentFX
