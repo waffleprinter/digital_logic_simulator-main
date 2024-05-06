@@ -74,9 +74,7 @@ public class TruthTableManager : MonoBehaviour
                 else ledOutput += '0';                
             }
 
-            Debug.Log(perm);
-            Debug.Log(ledOutput);
-            Debug.Log("");
+            Debug.Log(perm + " " + ledOutput);
         }
     }
 
