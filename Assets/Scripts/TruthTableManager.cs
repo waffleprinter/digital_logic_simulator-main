@@ -45,8 +45,7 @@ public class TruthTableManager : MonoBehaviour
     }
 
     private void GetTruthTable() {
-        List<List<int>> truthTable = new List<List<int>>();
-
+        Debug.Log("call get truth table");
         ResetSwitches();
 
         var gates = GameObject.FindGameObjectsWithTag("Gate");
@@ -55,18 +54,10 @@ public class TruthTableManager : MonoBehaviour
 
         foreach (var perm in permutations) {
             ResetSwitches();
-            List<int> currentInputs = new List<int>();
 
             for (int i = 0; i < perm.Length; i++) {
-                if (perm[i] == '1') {
-                    currentInputs.Add(1);
-                    switches[i].GetComponent<NodeLogicScript>().ToggleOutput();
-                } else {
-                    currentInputs.Add(0);
-                }
+                if (perm[i] == '1') switches[i].GetComponent<NodeLogicScript>().ToggleOutput();
             }
-
-            truthTable.Add(currentInputs);
 
             foreach (var gate in gates) {
                 gate.GetComponent<NodeLogicScript>().output = gate.GetComponent<NodeLogicScript>().CalculateOutput();
@@ -76,14 +67,14 @@ public class TruthTableManager : MonoBehaviour
                 led.GetComponent<NodeLogicScript>().output = led.GetComponent<NodeLogicScript>().CalculateOutput();
             }
 
-            List<int> currentOutputs = new List<int>();
+            string ledOutput = "";
 
             for (int i = leds.Count - 1; i >= 0; i--) {
-                if (leds[i].GetComponent<NodeLogicScript>().GetOutput()) currentOutputs.Add(1);
-                else currentOutputs.Add(0);
+                if (leds[i].GetComponent<NodeLogicScript>().GetOutput()) ledOutput += '1';
+                else ledOutput += '0';                
             }
 
-            truthTable.Add(currentOutputs);
+            Debug.Log(perm + " " + ledOutput);
         }
     }
 
