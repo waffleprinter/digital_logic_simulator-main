@@ -85,6 +85,8 @@ public class TruthTableManager : MonoBehaviour
 
             truthTable.Add(currentOutputs);
         }
+
+        printTruthTable(truthTable);
     }
 
     private void ResetSwitches() {
@@ -92,5 +94,24 @@ public class TruthTableManager : MonoBehaviour
             swScript = sw.GetComponent<NodeLogicScript>();
             if (swScript.GetOutput()) swScript.ToggleOutput();
         }
+    }
+
+    private void printTruthTable(List<List<int>> truthTable) {
+        for (int i = 0; i < truthTable.Count; i += 2) {
+            string inputs = "";
+            string outputs = "";
+
+            foreach (int value in truthTable[i]) {
+                inputs += value.ToString();
+            }
+
+            foreach (int value in truthTable[i + 1]) {
+                outputs += value.ToString();
+            }
+
+            Debug.Log(inputs + " " + outputs);
+        }
+
+        Debug.Log("");
     }
 }
