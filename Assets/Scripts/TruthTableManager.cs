@@ -22,7 +22,7 @@ public class TruthTableManager : MonoBehaviour
 
     private void Update() {
         selectingText.gameObject.SetActive(selecting);
-        
+
         if (Input.GetKeyDown(KeyCode.Tab)) selecting = !selecting;
 
         if (!selecting) return;
@@ -45,12 +45,12 @@ public class TruthTableManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            GetTruthTable();
+            printTruthTable();
         }
     }
 
-    private void GetTruthTable() {
-        List<List<int>> truthTable = new List<List<int>>();
+    public List<List<int>> GetTruthTable() {
+        List<List<int>> truthTable = new List<List<int>>(); // [[in1, in2], [out1, out2], [in1, in2], [out1, out2]]
 
         ResetSwitches();
 
@@ -91,7 +91,7 @@ public class TruthTableManager : MonoBehaviour
             truthTable.Add(currentOutputs);
         }
 
-        printTruthTable(truthTable);
+        return truthTable;
     }
 
     private void ResetSwitches() {
@@ -101,7 +101,9 @@ public class TruthTableManager : MonoBehaviour
         }
     }
 
-    private void printTruthTable(List<List<int>> truthTable) {
+    private void printTruthTable() {
+        List<List<int>> truthTable = GetTruthTable();
+
         for (int i = 0; i < truthTable.Count; i += 2) {
             string inputs = "";
             string outputs = "";

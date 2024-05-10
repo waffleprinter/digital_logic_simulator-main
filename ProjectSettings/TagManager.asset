@@ -10,6 +10,7 @@ TagManager:
   - LED
   - Switch or LED
   - Gate
+  - Canvas
   layers:
   - Default
   - TransparentFX
