@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TruthTableManager : MonoBehaviour
 {
-    public List<GameObject> switches = new List<GameObject>();
-    public List<GameObject> leds = new List<GameObject>();
+    public GameObject selectingText;
 
     private bool selecting = false;
+
+    public List<GameObject> switches = new List<GameObject>();
+    public List<GameObject> leds = new List<GameObject>();
 
     private GameObject gateHit;
     private NodeLogicScript swScript;
 
     private void Update() {
+        selectingText.gameObject.SetActive(selecting);
+        
         if (Input.GetKeyDown(KeyCode.Tab)) selecting = !selecting;
 
         if (!selecting) return;
