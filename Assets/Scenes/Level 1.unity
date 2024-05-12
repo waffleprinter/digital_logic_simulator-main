@@ -3603,8 +3603,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36af3a69e390e3442aa7d2384e16ded9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  truthTableBackgroundPrefab: {fileID: 0}
-  cellPrefab: {fileID: 0}
+  truthTableBackgroundPrefab: {fileID: 5298997293467868698, guid: ac7e44b7947b3324eaa1a2b245005ead, type: 3}
+  cellPrefab: {fileID: 3264367876534725856, guid: 411074dbe1f6d2d46b6690fbdf29e02e, type: 3}
+  cellTextPrefab: {fileID: 9119618460703822263, guid: 1d83df0117d6ed740af82934a025f3fa, type: 3}
 --- !u!1 &1937596825
 GameObject:
   m_ObjectHideFlags: 0
