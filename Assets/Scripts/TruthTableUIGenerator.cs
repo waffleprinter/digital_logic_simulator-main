@@ -1,44 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TruthTableUIGenerator : MonoBehaviour
-{
-    private List<List<int>> targetTruthTable = new List<List<int>> {  // AND GATE TRUTH TABLE
-        new List<int> {0, 0},
-        new List<int> {0},
-        new List<int> {0, 1},
-        new List<int> {0},
-        new List<int> {1, 0},
-        new List<int> {0},
-        new List<int> {1, 1},
-        new List<int> {1},
-    };
-
+public class TruthTableUIGenerator : MonoBehaviour {
     [SerializeField] private GameObject truthTableBackgroundPrefab;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private TextMeshProUGUI cellTextPrefab;
 
-    private int numberOfInputs;
-    private int numberOfOutputs;
+    private Scene scene;
 
-    private int numberOfRows;
-    private double numberOfColumns;
+    List<List<int>> targetTruthTable;
+    GameObject playerTruthTable;
+    
 
     private void Start() {
-        numberOfInputs = targetTruthTable[0].Count;
-        numberOfOutputs = targetTruthTable[1].Count;
+        scene = SceneManager.GetActiveScene();
+        targetTruthTable = GetTargetTruthTable(scene);
 
-        numberOfRows = numberOfInputs + numberOfOutputs;
-        numberOfColumns = Math.Pow(2, Math.Max(numberOfInputs, numberOfOutputs)) + 1;
+        DisplayTruthTable(targetTruthTable, 1920, 0, false);
+    }
+
+    public void DisplayTruthTable(List<List<int>> truthTable, int x, int y, bool isPlayerTable) {
+        if (playerTruthTable) {
+            Destroy(playerTruthTable);
+        }
+
+        int numberOfInputs = truthTable[0].Count;
+        int numberOfOutputs = truthTable[1].Count;
+
+        int numberOfRows = numberOfInputs + numberOfOutputs;
+        double numberOfColumns = Math.Pow(2, Math.Max(numberOfInputs, numberOfOutputs)) + 1;
 
         Vector2 cellSize = truthTableBackgroundPrefab.GetComponent<GridLayoutGroup>().cellSize;
 
         GameObject truthTableBackground = Instantiate(truthTableBackgroundPrefab);
+        if (isPlayerTable) playerTruthTable = truthTableBackground;
         truthTableBackground.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
 
         truthTableBackground.GetComponent<RectTransform>().sizeDelta = new Vector2 (
@@ -47,8 +50,8 @@ public class TruthTableUIGenerator : MonoBehaviour
         );
 
         truthTableBackground.transform.position = new Vector3 (
-            1920 - (truthTableBackground.GetComponent<RectTransform>().sizeDelta.x + 20) / 2,
-            (truthTableBackground.GetComponent<RectTransform>().sizeDelta.y + 20) / 2,
+            x - (truthTableBackground.GetComponent<RectTransform>().sizeDelta.x + 60) / 2,
+            y + (truthTableBackground.GetComponent<RectTransform>().sizeDelta.y + 80) / 2,
             0
         );
 
@@ -65,14 +68,54 @@ public class TruthTableUIGenerator : MonoBehaviour
             if (i < numberOfInputs) { cellText.text = "I" + (i + 1).ToString(); } 
             else if (i < numberOfRows) { cellText.text = "O" + (i - numberOfInputs + 1).ToString(); } 
             else {
-                cellText.text = targetTruthTable[sublist][index].ToString();
+                cellText.text = truthTable[sublist][index].ToString();
 
                 index++;
-                if (index == targetTruthTable[sublist].Count) {
+                if (index == truthTable[sublist].Count) {
                     sublist++;
                     index = 0;
                 }
             }
         }
+    }
+
+    public List<List<int>> GetTargetTruthTable(Scene scene) {
+        switch (scene.name) {
+            case "Level 1": 
+                targetTruthTable = new List<List<int>> {  // AND GATE TRUTH TABLE
+                new List<int> {0, 0}, new List<int> {0},
+                new List<int> {0, 1}, new List<int> {0},
+                new List<int> {1, 0}, new List<int> {0},
+                new List<int> {1, 1}, new List<int> {1},
+                };
+
+                break;
+            
+            case "Level 2":
+                targetTruthTable = new List<List<int>> {  // HALF ADDER TRUTH TABLE
+                new List<int> {0, 0}, new List<int> {0, 0},
+                new List<int> {0, 1}, new List<int> {0, 1},
+                new List<int> {1, 0}, new List<int> {0, 1},
+                new List<int> {1, 1}, new List<int> {1, 0},
+                };
+
+                break;
+
+            case "Level 3":
+                targetTruthTable = new List<List<int>> {  // FULL ADDER TRUTH TABLE
+                new List<int> {0, 0, 0}, new List<int> {0, 0},
+                new List<int> {0, 0, 1}, new List<int> {0, 1},
+                new List<int> {0, 1, 0}, new List<int> {0, 1},
+                new List<int> {0, 1, 1}, new List<int> {1, 0},
+                new List<int> {1, 0, 0}, new List<int> {0, 1},
+                new List<int> {1, 0, 1}, new List<int> {1, 0},
+                new List<int> {1, 1, 0}, new List<int> {1, 0},
+                new List<int> {1, 1, 1}, new List<int> {1, 1},
+                };
+
+                break;
+        }
+
+        return targetTruthTable;
     }
  }

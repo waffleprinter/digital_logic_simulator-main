@@ -20,6 +20,14 @@ public class TruthTableManager : MonoBehaviour
     private GameObject gateHit;
     private NodeLogicScript swScript;
 
+    public List<List<int>> playerTruthTable;
+
+    private GameObject truthTableUIGenerator;
+
+    private void Start() {
+        truthTableUIGenerator = GameObject.Find("Truth Table UI Generator");
+    }
+
     private void Update() {
         selectingText.gameObject.SetActive(selecting);
 
@@ -45,7 +53,8 @@ public class TruthTableManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            printTruthTable();
+            playerTruthTable = GetTruthTable();
+            truthTableUIGenerator.GetComponent<TruthTableUIGenerator>().DisplayTruthTable(playerTruthTable, 90 * GetTruthTable()[0].Count + 350, 0, true);
         }
     }
 
