@@ -11,6 +11,7 @@ TagManager:
   - Switch or LED
   - Gate
   - Canvas
+  - Truth Table
   layers:
   - Default
   - TransparentFX

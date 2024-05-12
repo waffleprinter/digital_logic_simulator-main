@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
     public void StartGame() {
-        SceneManager.LoadScene("Workbench");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void LoadMainMenu() {
@@ -16,5 +16,17 @@ public class MainMenuScript : MonoBehaviour
     public void QuitGame() {
         Debug.Log("Quit Game");
         Application.Quit();
+    }
+
+    public void Level1() {
+        SceneManager.LoadScene("Level 1");
+    }
+
+    public void Level2() {
+        SceneManager.LoadScene("Level 2");
+    }
+
+    public void Level3() {
+        SceneManager.LoadScene("Level 3");
     }
 }

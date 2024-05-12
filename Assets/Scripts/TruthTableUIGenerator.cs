@@ -16,11 +16,10 @@ public class TruthTableUIGenerator : MonoBehaviour {
 
     private Scene scene;
 
-    List<List<int>> targetTruthTable;
-    GameObject playerTruthTable;
+    public List<List<int>> targetTruthTable;
+    public GameObject playerTruthTable;
 
     private bool truthTablesVisible = false;
-    
 
     private void Start() {
         scene = SceneManager.GetActiveScene();

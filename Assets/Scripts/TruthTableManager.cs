@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class TruthTableManager : MonoBehaviour
@@ -55,6 +56,14 @@ public class TruthTableManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             playerTruthTable = GetTruthTable();
             truthTableUIGenerator.GetComponent<TruthTableUIGenerator>().DisplayTruthTable(playerTruthTable, 90 * GetTruthTable()[0].Count + 350, 0, true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V)) {
+            if (ComparePlayerTruthTableToTarget(playerTruthTable, truthTableUIGenerator.GetComponent<TruthTableUIGenerator>().targetTruthTable)) {
+                SceneManager.LoadScene("Victory");
+            } else {
+                SceneManager.LoadScene("Defeat");
+            }
         }
     }
 
@@ -110,9 +119,7 @@ public class TruthTableManager : MonoBehaviour
         }
     }
 
-    private void printTruthTable() {
-        List<List<int>> truthTable = GetTruthTable();
-
+    private void printTruthTable(List<List<int>> truthTable) {
         for (int i = 0; i < truthTable.Count; i += 2) {
             string inputs = "";
             string outputs = "";
@@ -129,5 +136,30 @@ public class TruthTableManager : MonoBehaviour
         }
 
         Debug.Log("");
+    }
+
+    public bool ComparePlayerTruthTableToTarget(List<List<int>> playerTruthTable, List<List<int>> targetTruthTable) {
+        return playerTruthTable.SequenceEqual(targetTruthTable, new ListEqualityComparer<int>());
+    }
+}
+
+class ListEqualityComparer<T> : IEqualityComparer<List<T>>
+{
+    public bool Equals(List<T> x, List<T> y)
+    {
+        return x.SequenceEqual(y);
+    }
+
+    public int GetHashCode(List<T> obj)
+    {
+        unchecked
+        {
+            int hash = 17;
+            foreach (T item in obj)
+            {
+                hash = hash * 23 + item.GetHashCode();
+            }
+            return hash;
+        }
     }
 }
