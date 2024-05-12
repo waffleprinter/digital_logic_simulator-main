@@ -18,6 +18,8 @@ public class TruthTableUIGenerator : MonoBehaviour {
 
     List<List<int>> targetTruthTable;
     GameObject playerTruthTable;
+
+    private bool truthTablesVisible = false;
     
 
     private void Start() {
@@ -25,6 +27,18 @@ public class TruthTableUIGenerator : MonoBehaviour {
         targetTruthTable = GetTargetTruthTable(scene);
 
         DisplayTruthTable(targetTruthTable, 1920, 0, false);
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            truthTablesVisible = !truthTablesVisible;
+
+            foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>(includeInactive:true)) {
+                if (obj.CompareTag("Truth Table")) {
+                    obj.SetActive(truthTablesVisible);
+                }
+            }
+        }
     }
 
     public void DisplayTruthTable(List<List<int>> truthTable, int x, int y, bool isPlayerTable) {
@@ -50,7 +64,7 @@ public class TruthTableUIGenerator : MonoBehaviour {
         );
 
         truthTableBackground.transform.position = new Vector3 (
-            x - (truthTableBackground.GetComponent<RectTransform>().sizeDelta.x + 60) / 2,
+            isPlayerTable ? (truthTableBackground.GetComponent<RectTransform>().sizeDelta.x + 60) / 2 + 160: x - (truthTableBackground.GetComponent<RectTransform>().sizeDelta.x + 60) / 2,
             y + (truthTableBackground.GetComponent<RectTransform>().sizeDelta.y + 80) / 2,
             0
         );
